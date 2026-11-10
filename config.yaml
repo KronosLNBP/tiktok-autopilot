@@ -1,0 +1,48 @@
+# ───────────────────────────────────────────────
+#  TikTok Autopilot — configuración principal
+# ───────────────────────────────────────────────
+
+# De qué trata tu cuenta. Claude usa esto para inventar ideas nuevas.
+niche: "Tips de productividad y hábitos para gente ocupada"
+language: "es-MX"
+audience: "Jóvenes profesionistas de 20 a 35 años en México y Latinoamérica"
+tone: "Directo, cercano, con humor ligero. Frases cortas."
+
+# Hashtags que se añaden a TODOS los videos
+default_hashtags: ["#productividad", "#habitos", "#tips", "#fyp"]
+
+# ── Publicación ───────────────────────────────
+publish:
+  # draft  → el video llega a tu bandeja de TikTok y tú le das "Publicar"
+  # direct → se publica solo (requiere scope video.publish)
+  mode: draft
+  # Solo para mode: direct. Sin auditoría de TikTok únicamente funciona SELF_ONLY.
+  # Tras la auditoría: PUBLIC_TO_EVERYONE
+  privacy_level: SELF_ONLY
+  disable_comment: false
+  disable_duet: false
+  disable_stitch: false
+  videos_per_run: 1
+
+# ── Generación automática de ideas (opcional, usa Claude) ──
+ideas:
+  enabled: true
+  min_pending: 5      # si quedan menos de N ideas pendientes, genera más
+  batch_size: 7
+  model: "claude-sonnet-5-5"
+
+# ── Estilo visual ─────────────────────────────
+style:
+  width: 1080
+  height: 1920
+  fps: 30
+  bg_top: "#0F0C29"
+  bg_bottom: "#302B63"
+  accent: "#FFD23F"
+  text: "#FFFFFF"
+  muted: "#B8B5D6"
+  handle: "@tucuenta"       # aparece abajo del video
+  hook_seconds: 3.0
+  point_seconds: 3.6
+  cta_seconds: 2.6
+  music_volume: 0.18        # si pones un .mp3 en assets/music/ se usa ese

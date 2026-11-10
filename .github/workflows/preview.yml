@@ -1,0 +1,31 @@
+name: Vista previa de videos
+
+# Cada vez que editas la cola, el estilo o el código, renderiza los pendientes
+# para que los revises (Actions → este run → Artifacts) antes de que se publiquen.
+on:
+  push:
+    paths: ["content/queue.yaml", "config.yaml", "src/**", "assets/**"]
+  pull_request:
+    paths: ["content/queue.yaml", "config.yaml", "src/**", "assets/**"]
+  workflow_dispatch:
+
+jobs:
+  preview:
+    if: "!contains(github.event.head_commit.message, '[skip ci]')"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+          pip install -r requirements.txt
+      - run: python cli.py render all
+      - uses: actions/upload-artifact@v4
+        with:
+          name: preview-${{ github.run_number }}
+          path: output/*.mp4
+          retention-days: 7
+          if-no-files-found: ignore

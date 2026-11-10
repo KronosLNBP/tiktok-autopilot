@@ -1,0 +1,71 @@
+name: Publicar en TikTok
+
+on:
+  schedule:
+    - cron: "17 1 * * *"   # diario 19:17 hora CDMX (01:17 UTC)
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Solo generar el video, sin subirlo"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: tiktok-publish
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    env:
+      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Instalar dependencias
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+          pip install -r requirements.txt
+
+      - name: Generar ideas si faltan
+        if: env.ANTHROPIC_API_KEY != ''
+        run: python cli.py ideas || echo "No se pudieron generar ideas; sigo con la cola actual"
+
+      - name: Solo renderizar (dry run)
+        if: inputs.dry_run == true
+        run: python cli.py render next
+
+      - name: Renderizar y subir
+        if: inputs.dry_run != true
+        env:
+          TIKTOK_CLIENT_KEY: ${{ secrets.TIKTOK_CLIENT_KEY }}
+          TIKTOK_CLIENT_SECRET: ${{ secrets.TIKTOK_CLIENT_SECRET }}
+          TIKTOK_REFRESH_TOKEN: ${{ secrets.TIKTOK_REFRESH_TOKEN }}
+          GH_PAT: ${{ secrets.GH_PAT }}
+        run: python cli.py publish
+
+      - name: Guardar videos como artefacto
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: videos-${{ github.run_number }}
+          path: output/*.mp4
+          retention-days: 14
+          if-no-files-found: ignore
+
+      - name: Registrar cambios en la cola
+        if: always()
+        run: |
+          git config user.name "tiktok-autopilot[bot]"
+          git config user.email "actions@users.noreply.github.com"
+          git add content/
+          git diff --cached --quiet || git commit -m "chore(content): actualizar cola y registro [skip ci]"
+          git push
