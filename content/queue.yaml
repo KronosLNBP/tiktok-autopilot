@@ -1,36 +1,36 @@
-# Cola de videos. Agrega ideas aquí (o deja que Claude las genere).
-# status: pending → rendered → uploaded/published  (o skip para saltarla)
+# Cola de videos. status: pending → uploaded/published (o skip)
 - id: regla-2-minutos
-  status: pending
-  hook: "Si tardas menos de 2 minutos… hazlo YA"
+  status: uploaded
+  hook: Si tardas menos de 2 minutos… hazlo YA
   points:
-    - "Contestar ese mensaje pendiente"
-    - "Lavar la taza que dejaste en el escritorio"
-    - "Guardar el archivo con un nombre decente"
-    - "Lo pequeño acumulado es lo que te agobia"
-  cta: "Guárdalo y pruébalo hoy"
-  caption: "La regla de los 2 minutos que te quita el estrés acumulado"
-  hashtags: ["#regla2minutos"]
-
+  - Contestar ese mensaje pendiente
+  - Lavar la taza que dejaste en el escritorio
+  - Guardar el archivo con un nombre decente
+  - Lo pequeño acumulado es lo que te agobia
+  cta: Guárdalo y pruébalo hoy
+  caption: La regla de los 2 minutos que te quita el estrés acumulado
+  hashtags:
+  - '#regla2minutos'
 - id: bloques-de-tiempo
   status: pending
-  hook: "Tu agenda está llena pero no avanzas en nada"
+  hook: Tu agenda está llena pero no avanzas en nada
   points:
-    - "Bloquea 90 min sin notificaciones"
-    - "Una sola tarea por bloque"
-    - "Descanso de 15 min entre bloques"
-    - "2 bloques al día ya es mucho"
-  cta: "Sígueme para más tips"
-  caption: "Time blocking explicado en 15 segundos"
-  hashtags: ["#timeblocking"]
-
+  - Bloquea 90 min sin notificaciones
+  - Una sola tarea por bloque
+  - Descanso de 15 min entre bloques
+  - 2 bloques al día ya es mucho
+  cta: Sígueme para más tips
+  caption: Time blocking explicado en 15 segundos
+  hashtags:
+  - '#timeblocking'
 - id: celular-fuera
   status: pending
-  hook: "El truco más barato para concentrarte"
+  hook: El truco más barato para concentrarte
   points:
-    - "Celular en OTRO cuarto"
-    - "No en silencio. Fuera."
-    - "Tu cerebro deja de esperar notificaciones"
-  cta: "¿Te atreves 1 hora?"
-  caption: "Tu celular te roba más foco del que crees"
-  hashtags: ["#concentracion"]
+  - Celular en OTRO cuarto
+  - No en silencio. Fuera.
+  - Tu cerebro deja de esperar notificaciones
+  cta: ¿Te atreves 1 hora?
+  caption: Tu celular te roba más foco del que crees
+  hashtags:
+  - '#concentracion'

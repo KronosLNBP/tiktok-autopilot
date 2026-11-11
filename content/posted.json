@@ -1,1 +1,12 @@
-[]
+[
+  {
+    "id": "regla-2-minutos",
+    "publish_id": "v_inbox_file~v2.7706754525927131156",
+    "mode": "draft",
+    "status": "SEND_TO_USER_INBOX",
+    "fail_reason": null,
+    "post_ids": null,
+    "caption": "La regla de los 2 minutos que te quita el estrés acumulado #regla2minutos #productividad #habitos #tips #fyp",
+    "at": "2026-11-11T03:46:16+00:00"
+  }
+]
