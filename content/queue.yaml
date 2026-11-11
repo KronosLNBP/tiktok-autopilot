@@ -24,7 +24,7 @@
   hashtags:
   - '#timeblocking'
 - id: celular-fuera
-  status: pending
+  status: failed
   hook: El truco más barato para concentrarte
   points:
   - Celular en OTRO cuarto
@@ -34,3 +34,4 @@
   caption: Tu celular te roba más foco del que crees
   hashtags:
   - '#concentracion'
+  error: 'unaudited_client_can_only_post_to_private_accounts: Please review our integration guidelines at https://developers.tiktok.com/doc/content-sharing-guidelines/ (log_id=202611111300296F4CC0215732C44AE839)'
