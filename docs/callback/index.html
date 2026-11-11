@@ -1,0 +1,10 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Authorization received · Autopilot Videos</title><style>body{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;max-width:760px;margin:0 auto;padding:40px 22px;line-height:1.6;color:#1b1838;background:#fafaff}
+header{display:flex;align-items:center;gap:14px;margin-bottom:28px}header img{width:56px;height:56px;border-radius:14px}
+h1{font-size:1.7rem;margin:0}h2{font-size:1.15rem;margin-top:1.8em}a{color:#4b3fd1}footer{margin-top:48px;font-size:.85rem;color:#666}
+code{background:#eee;padding:2px 6px;border-radius:6px;word-break:break-all}button{background:#302B63;color:#fff;border:0;border-radius:10px;padding:12px 20px;font-size:1rem;cursor:pointer}</style></head><body>
+<header><img src="../icon-1024.png" alt=""><h1>Authorization received</h1></header>
+<p id="msg">Copy the full address below and paste it into <code>auth_setup.py</code>.</p>
+<p><code id="url"></code></p><button onclick="navigator.clipboard.writeText(location.href).then(()=>this.textContent='Copied ✓')">Copy URL</button>
+<script>document.getElementById('url').textContent=location.href;
+var p=new URLSearchParams(location.search);if(p.get('error')){document.getElementById('msg').textContent='Authorization error: '+p.get('error')+' '+(p.get('error_description')||'');}</script>
+<footer>Autopilot Videos · <a href="../index.html">Home</a> · <a href="../terms.html">Terms of Service</a> · <a href="../privacy.html">Privacy Policy</a> · Contact: <a href="mailto:CONTACT_EMAIL">CONTACT_EMAIL</a></footer></body></html>
