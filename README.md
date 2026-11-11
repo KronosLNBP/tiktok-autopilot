@@ -71,3 +71,16 @@ gh secret set GH_PAT              # opcional: token con permiso "Secrets: write"
 - Revisa las ideas que genera Claude antes de que salgan (la *Vista previa* sirve para eso).
 - No uses música comercial sin licencia; usa tu biblioteca libre de derechos en `assets/music/`.
 - TikTok limita cuántos posts por día acepta la API por cuenta; 1–3 al día es seguro.
+
+## Conectar (o reconectar) la cuenta desde el sitio
+
+1. Abre el sitio y da **Continue with TikTok** → autoriza.
+2. En la página de callback da **Copy & finish connection** → te lleva al workflow *Conectar cuenta de TikTok*.
+3. **Run workflow**, pega la dirección y ejecuta. Guarda el refresh token como secret y muestra tu cuenta en el sitio.
+
+Requiere el secret `GH_PAT`: un *fine-grained token* de GitHub solo para este repo con permiso **Secrets: Read and write**.
+El client key del sitio está en `docs/config.js` (cámbialo por el de Production cuando TikTok apruebe la app).
+
+## Publicar a mano eligiendo modo
+
+*Actions → Publicar en TikTok → Run workflow*: elige `draft` o `direct` y la privacidad. En modo `direct` el log muestra la cuenta y las opciones de privacidad que TikTok permite.

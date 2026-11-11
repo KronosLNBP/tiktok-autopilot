@@ -3,8 +3,24 @@ header{display:flex;align-items:center;gap:14px;margin-bottom:28px}header img{wi
 h1{font-size:1.7rem;margin:0}h2{font-size:1.15rem;margin-top:1.8em}a{color:#4b3fd1}footer{margin-top:48px;font-size:.85rem;color:#666}
 code{background:#eee;padding:2px 6px;border-radius:6px;word-break:break-all}button{background:#302B63;color:#fff;border:0;border-radius:10px;padding:12px 20px;font-size:1rem;cursor:pointer}</style></head><body>
 <header><img src="../icon-1024.png" alt=""><h1>Authorization received</h1></header>
-<p id="msg">Copy the full address below and paste it into <code>auth_setup.py</code>.</p>
-<p><code id="url"></code></p><button onclick="navigator.clipboard.writeText(location.href).then(()=>this.textContent='Copied ✓')">Copy URL</button>
-<script>document.getElementById('url').textContent=location.href;
-var p=new URLSearchParams(location.search);if(p.get('error')){document.getElementById('msg').textContent='Authorization error: '+p.get('error')+' '+(p.get('error_description')||'');}</script>
+<div id="ok" style="display:none">
+<p style="font-size:1.2rem">✅ TikTok authorized the app.</p>
+<p>Last step: finish the connection so the scheduled job can upload videos to this account.</p>
+<ol><li>Click <strong>Copy &amp; finish connection</strong> (it copies this page's address).</li>
+<li>On GitHub, click <strong>Run workflow</strong>, paste the address and run it.</li></ol>
+<button id="go">Copy &amp; finish connection</button>
+</div>
+<p id="err" style="display:none;color:#b00020"></p>
+<script src="../config.js"></script>
+<script>
+var p=new URLSearchParams(location.search),err=document.getElementById('err');
+var saved=null;try{saved=sessionStorage.getItem('tt_state')}catch(e){}
+if(p.get('error')){err.textContent='Authorization error: '+p.get('error')+' '+(p.get('error_description')||'');err.style.display='block';}
+else if(!p.get('code')){err.textContent='No authorization code found. Start again from the home page.';err.style.display='block';}
+else if(saved&&saved!==p.get('state')){err.textContent='Security check failed (state mismatch). Start again from the home page.';err.style.display='block';}
+else{document.getElementById('ok').style.display='block';
+  document.getElementById('go').onclick=function(){var u=location.href;
+    (navigator.clipboard?navigator.clipboard.writeText(u):Promise.resolve()).finally(function(){
+      location.href='https://github.com/'+APP.repo+'/actions/workflows/connect.yml';});};}
+</script>
 <footer>Autopilot Videos · <a href="../index.html">Home</a> · <a href="../terms.html">Terms of Service</a> · <a href="../privacy.html">Privacy Policy</a> · Contact: <a href="mailto:k97021113@gmail.com">k97021113@gmail.com</a></footer></body></html>

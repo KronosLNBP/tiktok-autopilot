@@ -1,0 +1,36 @@
+name: Conectar cuenta de TikTok
+
+# Se abre desde la página de callback del sitio (botón "Copy & finish connection").
+on:
+  workflow_dispatch:
+    inputs:
+      callback_url:
+        description: "Pega aquí la dirección completa de la página de callback"
+        required: true
+
+permissions:
+  contents: write
+
+jobs:
+  connect:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install requests
+      - name: Cambiar código por tokens y guardar la conexión
+        env:
+          CALLBACK_URL: ${{ inputs.callback_url }}
+          TIKTOK_CLIENT_KEY: ${{ secrets.TIKTOK_CLIENT_KEY }}
+          TIKTOK_CLIENT_SECRET: ${{ secrets.TIKTOK_CLIENT_SECRET }}
+          GH_PAT: ${{ secrets.GH_PAT }}
+        run: python src/connect.py
+      - name: Publicar cuenta conectada en el sitio
+        run: |
+          git config user.name "tiktok-autopilot[bot]"
+          git config user.email "actions@users.noreply.github.com"
+          git add docs/account.json
+          git diff --cached --quiet || git commit -m "chore: cuenta de TikTok conectada [skip ci]"
+          git push

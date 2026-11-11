@@ -89,9 +89,16 @@ def cmd_render(target="next"):
 
 
 def cmd_publish():
+    import os
+
     import tiktok_api as tt
 
     cfg = load_cfg()
+    # Overrides desde el workflow manual (Run workflow → modo / privacidad)
+    if os.environ.get("PUBLISH_MODE") in ("draft", "direct"):
+        cfg["publish"]["mode"] = os.environ["PUBLISH_MODE"]
+    if os.environ.get("PRIVACY_LEVEL"):
+        cfg["publish"]["privacy_level"] = os.environ["PRIVACY_LEVEL"]
     cmd_ideas()
     q = load_queue()
     todo = pending(q)[: cfg["publish"]["videos_per_run"]]

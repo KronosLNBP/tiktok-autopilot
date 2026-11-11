@@ -5,6 +5,16 @@ on:
     - cron: "17 1 * * *"   # diario 19:17 hora CDMX (01:17 UTC)
   workflow_dispatch:
     inputs:
+      mode:
+        description: "Cómo subir"
+        type: choice
+        options: [config, draft, direct]
+        default: config
+      privacy:
+        description: "Privacidad (solo modo direct). Sin auditoría solo funciona SELF_ONLY"
+        type: choice
+        options: [SELF_ONLY, MUTUAL_FOLLOW_FRIENDS, FOLLOWER_OF_CREATOR, PUBLIC_TO_EVERYONE]
+        default: SELF_ONLY
       dry_run:
         description: "Solo generar el video, sin subirlo"
         type: boolean
@@ -50,6 +60,8 @@ jobs:
           TIKTOK_CLIENT_SECRET: ${{ secrets.TIKTOK_CLIENT_SECRET }}
           TIKTOK_REFRESH_TOKEN: ${{ secrets.TIKTOK_REFRESH_TOKEN }}
           GH_PAT: ${{ secrets.GH_PAT }}
+          PUBLISH_MODE: ${{ inputs.mode }}
+          PRIVACY_LEVEL: ${{ inputs.mode == 'direct' && inputs.privacy || '' }}
         run: python cli.py publish
 
       - name: Guardar videos como artefacto

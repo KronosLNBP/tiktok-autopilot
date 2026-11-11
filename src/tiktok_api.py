@@ -107,10 +107,19 @@ def upload(token: str, path: Path, caption: str, pub_cfg: dict) -> str:
     if pub_cfg.get("mode") == "direct":
         info = creator_info(token)
         allowed = info.get("privacy_level_options", [])
+        print(f"   👤 Cuenta: {info.get('creator_nickname')} (@{info.get('creator_username')})")
+        print(f"   🔒 Privacidad permitida: {', '.join(allowed) or 'n/d'}")
+        if info.get("comment_disabled"):
+            pub_cfg = {**pub_cfg, "disable_comment": True}
+        if info.get("duet_disabled"):
+            pub_cfg = {**pub_cfg, "disable_duet": True}
+        if info.get("stitch_disabled"):
+            pub_cfg = {**pub_cfg, "disable_stitch": True}
         privacy = pub_cfg.get("privacy_level", "SELF_ONLY")
         if allowed and privacy not in allowed:
             print(f"⚠️  {privacy} no permitido para esta cuenta/app; usando {allowed[0]}")
             privacy = allowed[0]
+        print(f"   🔒 Publicando con privacidad: {privacy}")
         body = {
             "post_info": {
                 "title": caption[:2200],
