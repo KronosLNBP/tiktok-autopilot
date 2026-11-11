@@ -34,7 +34,7 @@ gh repo create tiktok-autopilot --private --source . --push
 ### 2. Crea tu app en TikTok for Developers
 1. Entra a <https://developers.tiktok.com> → **Manage apps → Connect an app**.
 2. Agrega el producto **Content Posting API** y activa los scopes `video.upload` (borradores) y `video.publish` (publicación directa). También `user.info.basic` (Login Kit).
-3. En **Login Kit → Redirect URI** registra una URL https tuya, por ejemplo `https://TU_USUARIO.github.io/tiktok-autopilot/callback` (no necesita existir).
+3. En **Login Kit → Redirect URI** registra una URL https tuya, por ejemplo `https://autopilot.kronosmedicine.com.mx/callback/` (no necesita existir).
 4. Copia el **Client key** y **Client secret**.
 
 > ⚠️ Mientras la app no pase la **auditoría** de TikTok, los posts directos solo pueden ser **privados (SELF_ONLY)**. Por eso el modo por defecto es `draft`: el video llega a tu bandeja de TikTok y tú le das *Publicar* (público) desde el celular. Cuando TikTok apruebe la auditoría, cambia a `mode: direct` y `privacy_level: PUBLIC_TO_EVERYONE`.
@@ -43,7 +43,7 @@ gh repo create tiktok-autopilot --private --source . --push
 ```bash
 pip install -r requirements.txt
 TIKTOK_CLIENT_KEY=xxx TIKTOK_CLIENT_SECRET=yyy \
-REDIRECT_URI=https://TU_USUARIO.github.io/tiktok-autopilot/callback \
+REDIRECT_URI=https://autopilot.kronosmedicine.com.mx/callback/ \
 python auth_setup.py
 ```
 
