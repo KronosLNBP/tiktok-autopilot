@@ -12,7 +12,7 @@
   hashtags:
   - '#regla2minutos'
 - id: bloques-de-tiempo
-  status: pending
+  status: uploaded
   hook: Tu agenda está llena pero no avanzas en nada
   points:
   - Bloquea 90 min sin notificaciones
